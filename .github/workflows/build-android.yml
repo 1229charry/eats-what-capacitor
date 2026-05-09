@@ -19,13 +19,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 33
+          api-levels: 33
           build-tools: 33.0.2
-          ndk: ''  # 不安装 NDK
+          ndk: ''  # 涓嶅畨瑁?NDK
       
       - name: Sync Capacitor
         run: |
           npm install
+          npm install -g @capacitor/cli
           npx cap sync android
           ls -la android/
       
