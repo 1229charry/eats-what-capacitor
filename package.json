@@ -1,0 +1,1 @@
+﻿{ "name": "eats-what", "version": "1.0.0", "description": "吃了啥 App", "main": "index.js", "scripts": { "build": "npx cap sync", "android": "npx cap open android" }, "dependencies": { "@capacitor/core": "^5.7.0" }, "devDependencies": { "@capacitor/android": "^5.7.0", "@capacitor/cli": "^5.7.0" } }
