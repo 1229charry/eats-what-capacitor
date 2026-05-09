@@ -18,32 +18,25 @@ jobs:
       
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 33
+          build-tools: 33.0.2
+          ndk: ''  # 不安装 NDK
       
-      - name: Install dependencies and sync Capacitor
+      - name: Sync Capacitor
         run: |
           npm install
           npx cap sync android
-          echo "=== Android directory structure ==="
           ls -la android/
-          ls -la android/app/
-          echo "=== Checking gradlew ==="
-          ls -la android/gradlew
-          echo "=== Checking local.properties ==="
-          cat android/local.properties 2>/dev/null || echo "No local.properties"
-          echo "=== ANDROID_SDK_ROOT ==="
-          echo $ANDROID_SDK_ROOT
-          echo "=== ANDROID_HOME ==="
-          echo $ANDROID_HOME
-          echo "=== SDK Manager list ==="
-          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --list_installed 2>/dev/null || echo "sdkmanager not found at expected path"
       
       - name: Build APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug --info --stacktrace 2>&1 | tail -200
+          ./gradlew assembleDebug --stacktrace
       
       - name: Upload APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: eats-what-apk
